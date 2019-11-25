@@ -7,14 +7,13 @@ consumes:
   - "application/json"
 produces:
   - "application/json"
-
 basePath: "/api"
 
 # Paths supported by the server application
 paths:
   /people:
     get:
-      operationId: "people.read"
+      operationId: "people.read" # now we need to create function 'read()' inside 'people.py'
       tags:
         - "People"
       summary: "The people data structure supported by the server application"
