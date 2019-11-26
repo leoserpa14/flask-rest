@@ -2,7 +2,7 @@ swagger: "2.0"
 info:
   description: This is the swagger file that goes with our server code
   version: "1.0.0"
-  title: Swagger REST Article
+  title: Swagger REST Article - Tutorial
 consumes:
   - "application/json"
 produces:
@@ -13,7 +13,7 @@ basePath: "/api"
 paths:
   /people:
     get:
-      operationId: "people.read" # now we need to create function 'read()' inside 'people.py'
+      operationId: "people.read_all" # now we need to create function 'read()' inside 'people.py'
       tags:
         - "People"
       summary: "The people data structure supported by the server application"
@@ -31,3 +31,28 @@ paths:
                   type: "string"
                 timestamp:
                   type: "string"
+
+  /people/{lname}:
+    get:
+      operationId: people.read_one
+      tags:
+        - People
+      summary: Endpoint for getting one person inside our people database (list)
+      description: Read one person from the list
+      parameters:
+        - name: lname # Links to {lname} in line 35?
+          in: path
+          description: Last name of the person to get from the list
+          type: string
+          required: True
+      responses:
+        200:
+          description: Successful read person operation
+          schema:
+            properties:
+              fname:
+                type: string
+              lname:
+                type: string
+              timestamp:
+                type: string
