@@ -12,7 +12,7 @@ basePath: "/api"
 # Paths supported by the server application
 paths:
   /people:
-    get:
+    get: # GET PEOPLE LIST
       operationId: "people.read_all" # now we need to create function 'read()' inside 'people.py'
       tags:
         - "People"
@@ -31,16 +31,39 @@ paths:
                   type: "string"
                 timestamp:
                   type: "string"
+    post: # CREATE NEW PERSON IN PEOPLE
+      operationId: people.create
+      tags:
+        - People
+      summary: Create a person and add it to the PEOPLE list
+      description: Create a new person and add it to the list
+      parameters:
+        - name: person
+          in: body
+          description: Person to create
+          required: True
+          schema:
+            type: object
+            properties:
+              fname:
+                type: string
+                description: First name of person to create
+              lname:
+                type: string
+                description: Last name of person to create
+      responses:
+        201:
+          description: Successfully created person in list.
 
   /people/{lname}:
-    get:
+    get: # GET ONE PERSON IN PEOPLE
       operationId: people.read_one
       tags:
         - People
       summary: Endpoint for getting one person inside our people database (list)
       description: Read one person from the list
       parameters:
-        - name: lname # Links to {lname} in line 35?
+        - name: lname # Links to {lname} in line 35? I guess it links with lname on people.read_one
           in: path
           description: Last name of the person to get from the list
           type: string
@@ -56,3 +79,43 @@ paths:
                 type: string
               timestamp:
                 type: string
+    
+    put: # UPDATE ONE PERSON IN PEOPLE
+      operationId: people.update
+      tags:
+        - People
+      summary: Update a person in the PEOPLE list.
+      description: Update a person in the PEOPLE list.
+      parameters:
+        - name: lname
+          in: path
+          description: Last name of the person to update in the list
+          type: string
+          required: True
+        - name: person
+          in: body
+          schema: # I think it's here where I determine that 'person' will have to receive a 'fname' and a 'lname'
+            type: object
+            properties:
+              fname:
+                type: string
+              lname:
+                type: string
+      responses:
+        200:
+          description: Succesfully updated person in PEOPLE list.
+    
+    delete:
+      operationId: people.delete
+      tags:
+        - People
+      summary: Delete a person from the PEOPLE list
+      description: Delete a peron
+      parameters:
+        - name: lname
+          in: path
+          type: string
+          required: True
+      responses:
+        200:
+          description: Successfully deleted a person from the PEOPLE list
