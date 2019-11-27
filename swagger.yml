@@ -12,6 +12,7 @@ basePath: "/api"
 # Paths supported by the server application
 paths:
   /people:
+    
     get: # GET PEOPLE LIST
       operationId: "people.read_all" # now we need to create function 'read()' inside 'people.py'
       tags:
@@ -25,18 +26,25 @@ paths:
             type: "array"
             items:
               properties:
+                person_id:
+                  type: string
+                  description: Id of the person
                 fname:
                   type: "string"
+                  description: First name of the person
                 lname:
                   type: "string"
+                  description: Last name of the person
                 timestamp:
                   type: "string"
+                  description: Creation/Update timestamp of the person
+    
     post: # CREATE NEW PERSON IN PEOPLE
       operationId: people.create
       tags:
         - People
-      summary: Create a person and add it to the PEOPLE list
-      description: Create a new person and add it to the list
+      summary: Create a person and add it to the People database
+      description: Create a new person and add it to the People database
       parameters:
         - name: person
           in: body
@@ -54,43 +62,67 @@ paths:
       responses:
         201:
           description: Successfully created person in list.
+          schema:
+            properties:
+              person_id:
+                type: string
+                description: Id of the person
+              fname:
+                type: string
+                description: First name of the person
+              lname:
+                type: string
+                description: Last name of the person
+              timestamp:
+                type: string
+                description: Creation/Update timestamp of the person record
 
-  /people/{lname}:
+
+  /people/{person_id}:
+    
     get: # GET ONE PERSON IN PEOPLE
       operationId: people.read_one
       tags:
         - People
-      summary: Endpoint for getting one person inside our people database (list)
-      description: Read one person from the list
+      summary: Read one person from our database
+      description: Read one person from the database
       parameters:
-        - name: lname # Links to {lname} in line 35? I guess it links with lname on people.read_one
+        # - name: lname # Links to {lname} in line 35? I guess it links with lname on people.read_one
+        - name: person_id
           in: path
-          description: Last name of the person to get from the list
-          type: string
+          description: ID of the person to get from the database
+          type: integer
           required: True
       responses:
         200:
           description: Successful read person operation
           schema:
+            type: object
             properties:
+              person_id:
+                type: string
+                description: ID of the person
               fname:
                 type: string
+                description: First name of the person
               lname:
                 type: string
+                description: Last name of the person
               timestamp:
                 type: string
+                description: Creation/Update timestamp of the person record
     
     put: # UPDATE ONE PERSON IN PEOPLE
       operationId: people.update
       tags:
         - People
-      summary: Update a person in the PEOPLE list.
-      description: Update a person in the PEOPLE list.
+      summary: Update a person in the People database
+      description: Update a person in the People database
       parameters:
-        - name: lname
+        - name: person_id
           in: path
-          description: Last name of the person to update in the list
-          type: string
+          description: ID of the person to update in the list
+          type: integer
           required: True
         - name: person
           in: body
@@ -99,12 +131,28 @@ paths:
             properties:
               fname:
                 type: string
+                description: First name of the person
               lname:
                 type: string
+                description: Last name of the person
       responses:
         200:
-          description: Succesfully updated person in PEOPLE list.
-    
+          description: Succesfully updated person in People database
+          schema:
+            properties:
+              person_id:
+                type: string
+                description: ID of the person in the database
+              fname:
+                type: string
+                description: First name of the person
+              lname:
+                type: string
+                description: Last name of the person
+              timestamp:
+                type: string
+                description: Creation/Update timestamp of the person record
+
     delete:
       operationId: people.delete
       tags:
@@ -112,10 +160,13 @@ paths:
       summary: Delete a person from the PEOPLE list
       description: Delete a peron
       parameters:
-        - name: lname
+        - name: person_id
           in: path
-          type: string
+          type: integer
+          description: ID of the person to delete
           required: True
       responses:
         200:
-          description: Successfully deleted a person from the PEOPLE list
+          description: Successfully deleted a person from the People database
+
+# File updated for part 2 of the tutorial
