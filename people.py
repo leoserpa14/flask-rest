@@ -90,3 +90,9 @@ def delete(lname):
         return make_response("{lname} successfully deleted".format(lname=lname))
     else:
         abort(404, "Person with last name {lname} not found".format(lname=lname))
+
+
+# IMPORTANTE: Desse jeito que a lista foi montada, se eu utilizar a função 'update' em 'Leonardo Cordeiro' por exemplo, eu vou
+# pesquisar pela chave do dicionário que está meu nome, ou seja, vou fazer o request procurando 'Cordeiro', agora se eu mudar 
+# o meu sobrenome com a função update, para 'Leonardo Serpa' por exemplo, esse nome ainda vai estar vinculado à 'Cordeiro', pois
+# essa é a chave do dicionário do meu nome, isso não vai mudar para 'Serpa'.
