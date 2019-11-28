@@ -16,3 +16,7 @@ before we had "/api/people/{lname}", now, we're gonna use the primary keys of ou
 Important: With the latest flask-sqlalchemy module, everytime I tried to make a request for the API, I would get a KeyError: 'SQLALCHEMY_TRACK_MODIFICATIONS'. Found in StackOverflow that if I installed the version 2.1.0 of flask-sqlalchemy the problem would go away, which it did, but ideally I would find the source of the problem and use the latest version of the package. #TODO
 https://realpython.com/flask-connexion-rest-api-part-2/
 
+Part 3: This part teaches how to set relations between different tables and why this is important, teaching us the relational database concept.
+https://realpython.com/flask-connexion-rest-api-part-3/
+
+
