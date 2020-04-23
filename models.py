@@ -1,4 +1,4 @@
-# Here we're gonna provida the Person and PersonSchema classes
+# Here we're gonna provide the Person and PersonSchema classes
 # (serializing and deserializing)
 
 from datetime import datetime
