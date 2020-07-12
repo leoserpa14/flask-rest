@@ -45,7 +45,7 @@ if os.path.exists("people.db"):
 # Create the database
 db.create_all()
 
-# Iterate over the PEOPLE structure and populate the database
+# iterate over the PEOPLE structure and populate the database
 for person in PEOPLE:
     p = Person(lname=person.get("lname"), fname=person.get("fname"))
 
