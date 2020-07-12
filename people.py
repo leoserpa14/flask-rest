@@ -84,7 +84,9 @@ def create(person):
 def read_one(person_id):
 
     # Get the person requested
-    person = Person.query.filter(Person.person_id == person_id).one_or_none()
+    person = Person.query.filter(Person.person_id == person_id)
+        .outerjoin(Note)
+        .one_or_none()
 
     # Did we find a person?
     if person is not None:
