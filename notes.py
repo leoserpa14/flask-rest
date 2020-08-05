@@ -19,6 +19,27 @@ def read_all():
     data = note_schema.dump(notes)
     return data
 
+def read_all_from_one(person_id):
+    """
+    This function responds to a request for /api/people/{person_id}/notes
+    with the complete list of notes, sorted by note timestamp
+    :return:                json list of all notes for 1 person
+    """
+    # Query the database for all the notes
+    notes = (
+        Note.query.join(Person, Person.person_id == Note.person_id)
+        .filter(Person.person_id == person_id)
+        .all()
+    )
+
+    if notes is not None:
+        note_schema = NoteSchema(many=True)
+        # note_schema = NoteSchema()
+        data = note_schema.dump(notes)
+        return data
+
+    else:
+        abort(404, f"Notes not found for person_id: {person_id}")
 
 def read_one(person_id, note_id):
     """

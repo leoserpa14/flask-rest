@@ -34,11 +34,9 @@ class Note(db.Model):
 
 
 class PersonSchema(ma.ModelSchema):
-
     class Meta:
         model = Person
         sqla_session = db.session
-
     notes = fields.Nested("PersonNoteSchema", default=[], many=True)
 
 
@@ -54,11 +52,9 @@ class PersonNoteSchema(ma.ModelSchema):
 
 
 class NoteSchema(ma.ModelSchema):
-
     class Meta:
         model = Note
         sqla_session = db.session
-
     person = fields.Nested("NotePersonSchema", default=None)
 
 
@@ -71,4 +67,3 @@ class NotePersonSchema(ma.ModelSchema):
     lname = fields.Str()
     fname = fields.Str()
     timestamp = fields.Str()
-
